@@ -1,17 +1,13 @@
-{
-	"format_version": "1.8.0",
-	"animations": {
-		"animation.render": {
-			"loop": true,
-			"bones": {
-				"root": {
-					"rotation": [
-						"variable.render = 1.0;",
-						0,
-						0
-					]
-				}
-			}
-		}
-	}
+double clockToMilliseconds(clock_t ticks){
+    // units/(units/time) => time (seconds) * 1000 = milliseconds
+    return (ticks/(double)CLOCKS_PER_SEC)*1000.0;
 }
+
+// ... in your main loop ...
+clock_t beginFrame = clock();
+
+// ... render and update game logic here ...
+
+clock_t endFrame = clock();
+// deltaTime can then be used to scale movement and other updates
+double deltaTime = clockToMilliseconds(endFrame - beginFrame);
